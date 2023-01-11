@@ -64,3 +64,52 @@ exports.UpdateTodo=(req,res)=>{
             }
         })
     }
+
+      // Update Status 
+exports.UpdateStatusTodo=(req,res)=>{
+        let _id = req.body["_id"]
+	let TodoStatus = req.body["TodoStatus"]
+        let TodoUpdateDate = Date.now()
+       
+        let postBody = {
+                TodoStatus: TodoStatus,
+                TodoUpdateDate: TodoUpdateDate
+        }
+        todoModel.updateOne({_id:_id}, {$set: postBody}, {upsert: true}, (err,data)=>{
+            if(err){
+                res.status(400).json({status:"fail",data:err})
+            } 
+            else {
+                res.status(200).json({ status: "success", data: data });
+            }
+        })
+    }
+
+    // Remove Todo
+exports.RemoveTodo=(req,res)=>{
+        let _id = req.body["_id"]
+        todoModel.remove({_id:_id}, (err,data)=>{
+            if(err){
+                res.status(400).json({status:"fail",data:err})
+            } 
+            else {
+                res.status(200).json({ status: "success", data: data });
+            }
+        })
+    }
+
+    // Select Todo by Status
+exports.SelectTodoByStatus=(req,res)=>{
+	let UserName= req.headers['username'];
+        let TodoStatus = req.body["TodoStatus"]
+	todoModel.find({UserName:UserName, TodoStatus: TodoStatus},(err,data)=>{
+	  if(err){
+	      res.status(400).json({status:"fail",data:err})
+	  } 
+	  else {
+		res.status(200).json({ status: "success", data: data });
+	  }
+	})
+    
+    
+    }
