@@ -19,5 +19,6 @@ router.post('/UpdateTodo', AuthVerifyMiddleware, todoController.UpdateTodo)
 router.post('/UpdateStatusTodo', AuthVerifyMiddleware, todoController.UpdateStatusTodo)
 router.post('/RemoveTodo', AuthVerifyMiddleware, todoController.RemoveTodo)
 router.post('/SelectTodoByStatus', AuthVerifyMiddleware, todoController.SelectTodoByStatus)
+router.post('/SelectTodoByDate', AuthVerifyMiddleware, todoController.SelectTodoByDate)
 
 module.exports = router;
